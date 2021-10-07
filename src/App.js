@@ -16,6 +16,22 @@ class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const getContactsJSON = localStorage.getItem('contacts');
+    const contactsJSON = JSON.parse(getContactsJSON);
+
+    if (contactsJSON) {
+      this.setState({
+        contacts: contactsJSON,
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    const setContactsJSON = JSON.stringify(this.state.contacts);
+    localStorage.setItem('contacts', setContactsJSON);
+  }
+
   filterInput = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
